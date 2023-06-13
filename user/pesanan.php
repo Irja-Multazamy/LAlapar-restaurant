@@ -60,47 +60,51 @@ $result = mysqli_fetch_array($ambil);
                                     </td>
                                 </tr>
                             </table>
-                            <table class="table table-bordered pt-2">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Menu</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
-                                        <th>Total</th>
-                                        <th>Pilihan</th>
-                                    </tr>
-                                </thead>
+                            <div class"row col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered pt-2">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Menu</th>
+                                                <th>Harga</th>
+                                                <th>Jumlah</th>
+                                                <th>Total</th>
+                                                <th>Pilihan</th>
+                                            </tr>
+                                        </thead>
 
-                                <?php
-                                include "../koneksi.php";
-                                $id = $_SESSION['id'];
-                                $datapesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE id_pengunjung = '$id'");
-                                $no = 1;
-                                    while ($tampil = mysqli_fetch_array($datapesanan)){
-                                        $total = $tampil['total'];
-                                        $subtotal+=$total;
-                                        ?>
-                                        <tr>
-                                            <td align='center'><?php echo $no++ ?></td>
-                                            <td><?php echo $tampil['menu']?></td>
-                                            <td><?php echo $tampil['harga']?></td>
-                                            <td><?php echo $tampil['jumlah']?></td>
-                                            <td><?php echo $tampil['total']?></td>
-                                            <td><a href="hapus_pesanan.php?id=<?php echo $tampil['id']  ?>" onclick="return confirm('Yakin akan menghapus menu ini dari pesanan?')" class="btn btn-danger">Hapus</a></td>
-                                        </tr>
-                                    <?php  
-                                    }?>
-                                    
-                                        <tr>
-                                            <th colspan="4">Sub Total</th>
-                                            <th colspan="2">Rp. <?php echo number_format($subtotal) ?></th>
-                                        </tr>
-                                        
-                                </table><br>
-                                <form method="POST" action="">
+                                        <?php
+                                        include "../koneksi.php";
+                                        $id = $_SESSION['id'];
+                                        $datapesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE id_pengunjung = '$id'");
+                                        $no = 1;
+                                            while ($tampil = mysqli_fetch_array($datapesanan)){
+                                                $total = $tampil['total'];
+                                                $subtotal+=$total;
+                                                ?>
+                                                <tr>
+                                                    <td align='center'><?php echo $no++ ?></td>
+                                                    <td><?php echo $tampil['menu']?></td>
+                                                    <td><?php echo $tampil['harga']?></td>
+                                                    <td><?php echo $tampil['jumlah']?></td>
+                                                    <td><?php echo $tampil['total']?></td>
+                                                    <td><a href="hapus_pesanan.php?id=<?php echo $tampil['id']  ?>" onclick="return confirm('Yakin akan menghapus menu ini dari pesanan?')" class="btn btn-danger">Hapus</a></td>
+                                                </tr>
+                                            <?php  
+                                            }?>
+                                            
+                                                <tr>
+                                                    <th colspan="4">Sub Total</th>
+                                                    <th colspan="2">Rp. <?php echo number_format($subtotal) ?></th>
+                                                </tr>
+                                                
+                                        </table>
+                                    </div>
+                                </div>
+                                <form method="POST" action="" class="pt-2">
                                     <a href="dashboard_user.php" class="btn btn-dark">Tambah Pesanan</a>
-                                    <button class="btn btn-success" name="konfirm">Konfirmasi Pesanan</button>
+                                    <button class="btn btn-success" name="konfirm">Konfirmasi</button>
                                 </form>
 
                                 <?php
