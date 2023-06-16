@@ -42,9 +42,9 @@
        }
    
        // Query untuk memilih tabel
-       $cek_data = mysqli_query($koneksi, "SELECT * FROM user WHERE email = '$email' AND `password` = '$pass'");
+       $cek_data = mysqli_query($koneksi, "SELECT * FROM `role` INNER JOIN user ON user.id_role = role.id WHERE email = '$email' AND `password` = '$pass'");
        $hasil = mysqli_fetch_array($cek_data);
-       $role = $hasil['id_role'];
+       $role = $hasil['role'];
        $login_user = $hasil['email'];
        $pembeli = $hasil['name'];
        $row = mysqli_num_rows($cek_data);
@@ -55,11 +55,11 @@
            $_SESSION['email'] = $login_user;
            $_SESSION['name'] = $pembeli;
    
-           if ($role == '1') {
+           if ($role == 'admin') {
                header('location: admin/dashboard_admin.php');
-           }elseif ($role == '2') {
+           }elseif ($role == 'staff') {
                header('location: staff/dashboard_staff.php');
-           }elseif ($role == '3') {
+           }elseif ($role == 'user') {
             header('location: user/pengunjung.php');
         }
        }else{
